@@ -1,0 +1,54 @@
+@CustomersApi_HostAddress = http://localhost:5079
+
+### Listar todos los clientes
+GET {{CustomersApi_HostAddress}}/api/customers
+Accept: application/json
+
+### Obtener un cliente por Id
+GET {{CustomersApi_HostAddress}}/api/customers/1
+Accept: application/json
+
+### Crear un cliente
+POST {{CustomersApi_HostAddress}}/api/customers
+Content-Type: application/json
+
+{
+  "firstName": "Linus",
+  "lastName": "Torvalds",
+  "email": "linus@example.com",
+  "phone": "+54 11 5555-1234"
+}
+
+### Actualizar un cliente
+PUT {{CustomersApi_HostAddress}}/api/customers/1
+Content-Type: application/json
+
+{
+  "firstName": "Ada",
+  "lastName": "King",
+  "email": "ada@example.com",
+  "phone": "+44 20 7946 0000"
+}
+
+### Eliminar un cliente
+DELETE {{CustomersApi_HostAddress}}/api/customers/3
+
+### Error 409: email repetido
+POST {{CustomersApi_HostAddress}}/api/customers
+Content-Type: application/json
+
+{
+  "firstName": "Otra",
+  "lastName": "Ada",
+  "email": "ada@example.com"
+}
+
+### Error 400: validación
+POST {{CustomersApi_HostAddress}}/api/customers
+Content-Type: application/json
+
+{
+  "firstName": "",
+  "lastName": "SinNombre",
+  "email": "esto-no-es-un-email"
+}
