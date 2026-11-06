@@ -1,6 +1,6 @@
 using CustomersApi.Mappers;
 using CustomersApi.Models;
-using CustomersApi.Services;
+using CustomersApi.Business;
 using CustomersApi.Services.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -49,6 +49,9 @@ namespace CustomersApi.Controllers
         {
             try
             {
+                CustomerRequest req = new CustomerRequest();
+                req.ToEntity();
+
                 var customer = await _service.CreateAsync(request.ToEntity());
                 return CreatedAtAction(nameof(GetCustomer), new { id = customer.Id }, customer.ToDto());
             }

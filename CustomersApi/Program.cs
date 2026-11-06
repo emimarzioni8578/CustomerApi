@@ -1,7 +1,8 @@
 using CustomersApi.DataAccess;
 using CustomersApi.DataAccess.Repositories;
-using CustomersApi.Services;
+using CustomersApi.Business;
 using Microsoft.EntityFrameworkCore;
+using CustomersApi.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,12 @@ builder.Services.AddDbContext<CustomersDbContext>(options =>
 // Inyección de dependencias: Controller -> Service -> Repository -> DbContext.
 builder.Services.AddScoped<ICustomersRepository, CustomersRepository>();
 builder.Services.AddScoped<ICustomersService, CustomersService>();
+
+builder.Services.AddSingleton<SingletonMarker>();
+builder.Services.AddScoped<ScopedMarker>();
+builder.Services.AddTransient<TransientMarker>();
+builder.Services.AddScoped<ConsumerA>();
+builder.Services.AddScoped<ConsumerB>();
 
 var app = builder.Build();
 

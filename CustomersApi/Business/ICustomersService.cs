@@ -1,6 +1,6 @@
 using CustomersApi.Entities;
 
-namespace CustomersApi.Services
+namespace CustomersApi.Business
 {
     // Servicio: contiene las reglas de negocio. No sabe nada de HTTP ni de EF Core.
     public interface ICustomersService

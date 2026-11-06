@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="CustomersApi/CustomersApi.csproj" />
+  <Project Path="SingletonProject/SingletonProject.csproj" Id="4e662192-d4c1-4691-b15c-3c2e4faf5367" />
 </Solution>

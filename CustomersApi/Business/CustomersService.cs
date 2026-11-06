@@ -2,7 +2,7 @@ using CustomersApi.DataAccess.Repositories;
 using CustomersApi.Entities;
 using CustomersApi.Services.Exceptions;
 
-namespace CustomersApi.Services
+namespace CustomersApi.Business
 {
     public class CustomersService : ICustomersService
     {
@@ -41,7 +41,7 @@ namespace CustomersApi.Services
         {
             var existingCustomer = await GetByIdAsync(id);
 
-            await EnsureEmailIsAvailableAsync(customer.Email, id);
+            await EnsureEmailIsAvailableAsync(customer.Email);
 
             existingCustomer.FirstName = customer.FirstName;
             existingCustomer.LastName = customer.LastName;
@@ -61,9 +61,9 @@ namespace CustomersApi.Services
         }
 
         // Regla de negocio: no puede haber dos clientes con el mismo email.
-        private async Task EnsureEmailIsAvailableAsync(string email, int? excludeCustomerId = null)
+        private async Task EnsureEmailIsAvailableAsync(string email)
         {
-            if (await _repository.EmailExistsAsync(email, excludeCustomerId))
+            if (await _repository.EmailExistsAsync(email))
             {
                 throw new DuplicateEmailException($"A customer with email '{email}' already exists.");
             }

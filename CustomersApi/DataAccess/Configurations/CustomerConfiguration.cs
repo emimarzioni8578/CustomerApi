@@ -10,7 +10,7 @@ namespace CustomersApi.DataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
-            builder.ToTable("Customers");
+            builder.ToTable("Customer");
 
             builder.HasKey(customer => customer.Id);
 
@@ -34,6 +34,11 @@ namespace CustomersApi.DataAccess.Configurations
 
             builder.Property(customer => customer.CreatedAt)
                 .HasDefaultValueSql("GETUTCDATE()");
+
+            builder.HasOne(customer => customer.Address)
+                .WithOne(address => address.Customer)
+                .HasForeignKey<Address>(address => address.CustomerId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Datos semilla: se insertan con la migración. Los valores deben ser fijos (nada de DateTime.Now).
             builder.HasData(

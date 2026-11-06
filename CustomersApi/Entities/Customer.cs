@@ -9,5 +9,6 @@ namespace CustomersApi.Entities
         public string Email { get; set; } = string.Empty;
         public string? Phone { get; set; }
         public DateTime CreatedAt { get; set; }
+        public Address? Address { get; set; } // Relación uno a uno con la entidad Address
     }
 }

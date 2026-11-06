@@ -7,7 +7,7 @@ namespace CustomersApi.DataAccess.Repositories
     {
         Task<IEnumerable<Customer>> GetAllAsync();
         Task<Customer?> GetByIdAsync(int id);
-        Task<bool> EmailExistsAsync(string email, int? excludeCustomerId = null);
+        Task<bool> EmailExistsAsync(string email);
         Task<Customer> AddAsync(Customer customer);
         Task UpdateAsync(Customer customer);
         Task DeleteAsync(Customer customer);

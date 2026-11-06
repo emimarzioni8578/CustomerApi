@@ -22,6 +22,41 @@ namespace CustomersApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("CustomersApi.Entities.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("City")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Street")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Suite")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Zipcode")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId")
+                        .IsUnique();
+
+                    b.ToTable("Address", (string)null);
+                });
+
             modelBuilder.Entity("CustomersApi.Entities.Customer", b =>
                 {
                     b.Property<int>("Id")
@@ -59,7 +94,7 @@ namespace CustomersApi.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Customers", (string)null);
+                    b.ToTable("Customer", (string)null);
 
                     b.HasData(
                         new
@@ -86,6 +121,65 @@ namespace CustomersApi.Migrations
                             FirstName = "Grace",
                             LastName = "Hopper"
                         });
+                });
+
+            modelBuilder.Entity("CustomersApi.Entities.Geo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AddressId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Lat")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Lng")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId")
+                        .IsUnique();
+
+                    b.ToTable("Geo", (string)null);
+                });
+
+            modelBuilder.Entity("CustomersApi.Entities.Address", b =>
+                {
+                    b.HasOne("CustomersApi.Entities.Customer", "Customer")
+                        .WithOne("Address")
+                        .HasForeignKey("CustomersApi.Entities.Address", "CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("CustomersApi.Entities.Geo", b =>
+                {
+                    b.HasOne("CustomersApi.Entities.Address", "Address")
+                        .WithOne("Geo")
+                        .HasForeignKey("CustomersApi.Entities.Geo", "AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("CustomersApi.Entities.Address", b =>
+                {
+                    b.Navigation("Geo");
+                });
+
+            modelBuilder.Entity("CustomersApi.Entities.Customer", b =>
+                {
+                    b.Navigation("Address");
                 });
 #pragma warning restore 612, 618
         }

@@ -26,15 +26,9 @@ namespace CustomersApi.DataAccess.Repositories
             return await _dbContext.Customers.FindAsync(id);
         }
 
-        public async Task<bool> EmailExistsAsync(string email, int? excludeCustomerId = null)
+        public async Task<bool> EmailExistsAsync(string email)
         {
             var query = _dbContext.Customers.Where(customer => customer.Email == email);
-
-            if (excludeCustomerId.HasValue)
-            {
-                query = query.Where(customer => customer.Id != excludeCustomerId.Value);
-            }
-
             return await query.AnyAsync();
         }
 
