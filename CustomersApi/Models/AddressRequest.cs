@@ -9,7 +9,7 @@ namespace CustomersApi.Models
         public string? Suite { get; set; }
         public string? City { get; set; }
         public string? Zipcode { get; set; }
-        public int UserId { get; set; }
+        public int CustomerId { get; set; }
         public GeoRequest? Geo { get; set; }
     }
 }

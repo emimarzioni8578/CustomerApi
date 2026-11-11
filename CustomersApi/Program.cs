@@ -3,6 +3,7 @@ using CustomersApi.DataAccess.Repositories;
 using CustomersApi.Business;
 using Microsoft.EntityFrameworkCore;
 using CustomersApi.Controllers;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,8 @@ builder.Services.AddOpenApi();
 // EF Core: registra el DbContext con la cadena de conexión de appsettings.json.
 builder.Services.AddDbContext<CustomersDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
 // Inyección de dependencias: Controller -> Service -> Repository -> DbContext.
 builder.Services.AddScoped<ICustomersRepository, CustomersRepository>();

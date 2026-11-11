@@ -48,7 +48,7 @@ namespace CustomersApi.Controllers
         string? Phone,
             [Required][MaxLength(20)][CuitCuil]
         string Cuil,
-            [Required]
+            [Required][EsMayorEdad]
         DateOnly BirthDate);
 
         public record PersonResponse(
