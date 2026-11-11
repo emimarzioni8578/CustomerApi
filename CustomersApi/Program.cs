@@ -23,6 +23,7 @@ builder.Services.AddScoped<ICustomersService, CustomersService>();
 builder.Services.AddSingleton<SingletonMarker>();
 builder.Services.AddScoped<ScopedMarker>();
 builder.Services.AddTransient<TransientMarker>();
+
 builder.Services.AddScoped<ConsumerA>();
 builder.Services.AddScoped<ConsumerB>();
 
