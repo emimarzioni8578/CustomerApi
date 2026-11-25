@@ -1,0 +1,17 @@
+namespace Catalog.Application.Results;
+
+public enum ErrorType
+{
+    Validation,
+    NotFound,
+    Conflict,
+}
+
+public record Error(ErrorType Type, string Message, IDictionary<string, string[]>? Fields = null)
+{
+    public static Error NotFound(string message) => new(ErrorType.NotFound, message);
+
+    public static Error Validation(string message, IDictionary<string, string[]>? fields = null) => new(ErrorType.Validation, message, fields);
+
+    public static Error Conflict(string message) => new(ErrorType.Conflict, message);
+}

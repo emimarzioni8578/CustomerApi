@@ -1,0 +1,66 @@
+@CatalogApi_HostAddress = https://localhost:7310
+
+### Queries
+
+GET {{CatalogApi_HostAddress}}/api/categories
+Accept: application/json
+
+###
+
+GET {{CatalogApi_HostAddress}}/api/products?categoryId=1&onlyActive=true
+Accept: application/json
+
+###
+
+GET {{CatalogApi_HostAddress}}/api/products/1
+Accept: application/json
+
+### Commands
+
+POST {{CatalogApi_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+  "categoryId": 1,
+  "code": "TEC-004",
+  "name": "Auriculares bluetooth",
+  "price": 45.00,
+  "stock": 10
+}
+
+###
+
+PUT {{CatalogApi_HostAddress}}/api/products/1
+Content-Type: application/json
+
+{
+  "categoryId": 1,
+  "name": "Teclado mecánico RGB",
+  "price": 64.90
+}
+
+###
+
+PATCH {{CatalogApi_HostAddress}}/api/products/1/stock
+Content-Type: application/json
+
+{
+  "quantity": -3
+}
+
+### Validación: devuelve 400 con el detalle por campo
+
+POST {{CatalogApi_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+  "categoryId": 1,
+  "code": "tec4",
+  "name": "",
+  "price": 0,
+  "stock": -1
+}
+
+### Conflicto: devuelve 409 porque la categoría tiene productos
+
+DELETE {{CatalogApi_HostAddress}}/api/categories/1
